@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll-triggered Animation</title>
+  <style>
+    /* styles.css */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200vh; /* Tạo trang đủ dài để cuộn */
+}
+
+.content {
+  margin: 50px 0;
+  padding: 20px;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0; /* Bắt đầu với độ mờ = 0 */
+  transform: translateY(50px); /* Dịch chuyển xuống 50px */
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Hiệu ứng khi cuộn */
+}
+
+.content.show {
+  opacity: 1; /* Hiện lên khi thêm class show */
+  transform: translateY(0); /* Về vị trí ban đầu */
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="content">🌟 Hello, I'm a popping content! 🌟</div>
+    <div class="content">🌟 Keep scrolling, more pops! 🌟</div>
+    <div class="content">🌟 Surprise! Another pop-up! 🌟</div>
+    <div class="content">🌟 Hello, I'm a popping content! 🌟</div>
+    <div class="content">🌟 Keep scrolling, more pops! 🌟</div>
+    <div class="content">🌟 Surprise! Another pop-up! 🌟</div>
+    <div class="content">🌟 Hello, I'm a popping content! 🌟</div>
+    <div class="content">🌟 Keep scrolling, more pops! 🌟</div>
+    <div class="content">🌟 Surprise! Another pop-up! 🌟</div>
+    <div class="content">🌟 Hello, I'm a popping content! 🌟</div>
+    <div class="content">🌟 Keep scrolling, more pops! 🌟</div>
+    <div class="content">🌟 Surprise! Another pop-up! 🌟</div>
+    <div class="content">🌟 Hello, I'm a popping content! 🌟</div>
+    <div class="content">🌟 Keep scrolling, more pops! 🌟</div>
+    <div class="content">🌟 Surprise! Another pop-up! 🌟</div>
+  </div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver(entries => 
+      entries.forEach(entry => entry.target.classList.toggle("show", entry.isIntersecting))
+    );
+    document.querySelectorAll(".content").forEach(content => observer.observe(content));
+  });
+  </script>
+</body>
+</html>

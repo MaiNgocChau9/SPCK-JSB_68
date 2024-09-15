@@ -7,18 +7,25 @@
     <!--! Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="shortcut icon" href="./access/logo.jpg" type="image/x-icon">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary" style="position: fixed; width: 100%;">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="./index.html">Portfolio</a>
+          <div class="logo">
+            <img src="./access/logo.jpg" alt="logo">
+            <a class="navbar-brand" href="./index.html" style="font-weight: bold;">Portfolio</a>
+          </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Giới thiệu</a>
+                <a class="nav-link active" href="./index.html">Trang chủ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">Giới thiệu</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Kỹ năng</a>
@@ -29,15 +36,76 @@
               <li class="nav-item">
                 <a class="nav-link" href="#">Liên hệ</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Blog</a>
+              </li>
             </ul>
           </div>
         </div>
       </nav>
 
+      
       <!--! Content -->
-    <main>
-        <div class="container">
+      <main>
+        <!--! Go to top -->
+        <a href="#start" class="go-top-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+          </svg>
+        </a>
+        
+        <!--! Trang chủ  !-->
+        <div class="container start" id="start">
+            <div class="title">
+              <h1>Xin chào!<br><span id="first_span">Tôi</span> là <span id="second_span">Mai Ngọc Châu</span></h1>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              <div class="fast-link">
+                <a class="secondary-button" href="#">Các dự án của tôi 😎</a>
+                <a class="primary-button" href="#">Xem thêm</a>
+              </div>
+            </div>
+            <div class="minh_hoa"><img src="./access/logo.svg" alt=""></div>
+        </div>
 
+        <!--! Giới thiệu  !-->
+        <div class="container about box">
+          
+          <!-- Thông tin cơ bản -->
+          <div class="box-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+              <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 0 1 .67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 1 1-.671-1.34l.041-.022ZM12 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+            </svg>                        
+            <h2>Thông tin cơ bản</h2>
+            <ul>
+              <li>Họ và tên: Mai Ngọc Châu</li>
+              <li>Tuổi: 12</li>
+              <li>Trường: THCS Thạnh Phú</li>
+              <li>Sở thích: Đọc sách, viết code, chơi game</li>
+              <li>Ước mơ: Trở thành một lập trình viên giỏi</li>
+            </ul>
+          </div>
+
+          <!-- Trường học -->
+          <div class="box-item">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg>
+            <p>Trường THCS Thạnh Phú</p>
+          </div>
+
+          <div class="box-item">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg>
+            <p>Trường THCS Thạnh Phú</p>
+          </div>
+          
+          <div class="box-item">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg>
+            <p>Trường THCS Thạnh Phú</p>
+          </div>
+
+          <div class="box-item">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg>
+            <p>Trường THCS Thạnh Phú</p>
+          </div>
+          
         </div>
     </main>
 
@@ -56,5 +124,13 @@
       </div>
     <!--! Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+      const observer = new IntersectionObserver(entries => 
+        entries.forEach(entry => entry.target.classList.toggle("show", entry.isIntersecting))
+      );
+      document.querySelectorAll(".container").forEach(content => observer.observe(content));
+      });
+    </script>
 </body>
 </html>
