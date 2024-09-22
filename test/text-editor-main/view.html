@@ -51,14 +51,6 @@
             });
         }
 
-        // Lắng nghe sự kiện 'storage'
-        window.addEventListener('storage', function(event) {
-            if (event.key === 'posts') {
-                updatePostList();
-            }
-        });
-
-        // Gọi hàm updatePostList() một lần khi trang được tải
         updatePostList();
     </script>
 </body>

@@ -171,6 +171,8 @@
         `;
         editor.document.head.appendChild(style);
 
+        // ---
+
         Object.keys(commands).forEach(id => {
             document.getElementById(id).addEventListener('click', () => execCommand(commands[id]));
         });
@@ -185,12 +187,8 @@
             e.target.value = '';
         });
 
+        // Lấy hình ảnh từ máy tính
         document.getElementById('imageFileBtn').addEventListener('click', () => imageInput.click());
-        document.getElementById('imageUrlBtn').addEventListener('click', () => {
-            const url = prompt('Enter image URL:');
-            if (url) execCommand('insertHTML', `<img src="${url}" style="max-width: 100%; height: auto;">`);
-        });
-
         document.getElementById('imageInput').addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
@@ -198,6 +196,12 @@
                 reader.onload = (e) => execCommand('insertHTML', `<img src="${e.target.result}" style="max-width: 100%; height: auto;">`);
                 reader.readAsDataURL(file);
             }
+        });
+        
+        // Lấy hình ảnh từ URL
+        document.getElementById('imageUrlBtn').addEventListener('click', () => {
+            const url = prompt('Enter image URL:');
+            if (url) execCommand('insertHTML', `<img src="${url}" style="max-width: 100%; height: auto;">`);
         });
 
         editor.document.addEventListener('paste', function(e) {
@@ -216,6 +220,7 @@
         });
 
         window.addEventListener('load', () => editor.focus());
+        // ---
 
         document.getElementById('add-post-btn').addEventListener('click', function() {
             const title = document.getElementById('title-input').value;
@@ -240,9 +245,6 @@
 
             // Lưu lại danh sách vào localStorage
             localStorage.setItem('posts', JSON.stringify(posts));
-
-            // Kích hoạt sự kiện 'storage' sau khi lưu bài viết
-            window.dispatchEvent(new Event('storage'));
 
             alert("Bài viết đã được đăng thành công!");
             window.location.href = 'admin.html'; // Chuyển hướng sang view.html sau khi đăng bài
