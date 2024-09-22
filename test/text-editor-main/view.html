@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách bài viết</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        #post-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        #post-list li {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        #post-list li:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Danh sách bài viết</h1>
+    <ul id="post-list"></ul>
+
+    <script>
+        // Hàm cập nhật danh sách bài viết
+        function updatePostList() {
+            const posts = JSON.parse(localStorage.getItem('posts')) || [];
+            const postList = document.getElementById('post-list');
+            postList.innerHTML = ''; // Xóa nội dung hiện tại của danh sách
+
+            posts.forEach((post, index) => {
+                const li = document.createElement('li');
+                li.textContent = post.title;
+                li.addEventListener('click', function() {
+                    // Lưu bài viết được chọn vào localStorage
+                    sessionStorage.setItem('currentPost', JSON.stringify(post));
+                    // Chuyển sang trang hiển thị bài viết
+                    window.location.href = 'post.html';
+                });
+                postList.appendChild(li);
+            });
+        }
+
+        // Lắng nghe sự kiện 'storage'
+        window.addEventListener('storage', function(event) {
+            if (event.key === 'posts') {
+                updatePostList();
+            }
+        });
+
+        // Gọi hàm updatePostList() một lần khi trang được tải
+        updatePostList();
+    </script>
+</body>
+</html>

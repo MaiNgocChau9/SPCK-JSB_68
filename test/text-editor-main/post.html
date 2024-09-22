@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài viết</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            line-height: 1.5;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #f4f4f4;
+        }
+        .post-title {
+            font-size: 30px;
+        }
+        .content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        img{
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="post-title"></h1>
+    <div class="content" id="post-content"></div>
+
+    <script>
+        // Lấy bài viết từ sessionStorage
+        const post = JSON.parse(sessionStorage.getItem('currentPost'));
+
+        if (post) {
+            document.getElementById('post-title').textContent = post.title;
+            document.getElementById('post-content').innerHTML = post.content;
+        } else {
+            document.body.innerHTML = "<p>Bài viết không tồn tại.</p>";
+        }
+    </script>
+</body>
+</html>

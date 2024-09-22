@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản trị bài viết</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+        body {
+            font-family: "Open Sans", sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+            padding: 20px 20%;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        #new-post-btn {
+            border: 2px solid #24b4fb;
+            background-color: #24b4fb;
+            border-radius: 0.9em;
+            cursor: pointer;
+            padding: 0.8em 1.2em 0.8em 1em;
+            transition: all ease-in-out 0.2s;
+            font-size: 16px;
+        }
+        button span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-weight: 600;
+        }
+        #new-post-btn:hover {
+            background-color: #0071e2;
+        }
+        #post-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        #post-list li {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        #post-list li:hover {
+            background-color: #f0f0f0;
+        }
+        .post-title {
+            flex-grow: 1;
+            cursor: pointer;
+        }
+        .delete-btn {
+            padding: 5px 10px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background-color: #ff1a1a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quản trị bài viết</h1>
+    
+    <!-- Nút tạo bài viết mới -->
+    <button id="new-post-btn">
+        <span>
+            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" fill="currentColor"></path>
+            </svg>
+        Tạo bài viết mới
+        </span>
+    </button>
+    
+    <ul id="post-list"></ul>
+
+    <script>
+        // Lấy danh sách bài viết từ localStorage
+        const posts = JSON.parse(localStorage.getItem('posts')) || [];
+
+        const postList = document.getElementById('post-list');
+        const newPostBtn = document.getElementById('new-post-btn');
+
+        // Chuyển hướng đến trang tạo bài viết mới
+        newPostBtn.addEventListener('click', function() {
+            window.location.href = 'new_post.html';
+        });
+
+        // Hiển thị danh sách bài viết
+        posts.forEach((post, index) => {
+            const li = document.createElement('li');
+            
+            // Tạo phần tử tiêu đề bài viết
+            const title = document.createElement('span');
+            title.classList.add('post-title');
+            title.textContent = post.title;
+
+            // Khi nhấp vào tiêu đề, sẽ chuyển sang trang hiển thị bài viết
+            title.addEventListener('click', function() {
+                sessionStorage.setItem('currentPost', JSON.stringify(post));
+                window.location.href = 'post.html';
+            });
+
+            // Tạo nút xóa bài viết
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'Xóa';
+            deleteBtn.classList.add('delete-btn');
+            deleteBtn.addEventListener('click', function() {
+                // Xác nhận trước khi xóa bài viết
+                const confirmDelete = confirm(`Bạn có chắc chắn muốn xóa bài viết: "${post.title}" không?`);
+                if (confirmDelete) {
+                    deletePost(index); // Gọi hàm xóa bài viết
+                }
+            });
+
+            li.appendChild(title);
+            li.appendChild(deleteBtn);
+            postList.appendChild(li);
+        });
+
+        // Hàm xóa bài viết
+        function deletePost(index) {
+            posts.splice(index, 1); // Xóa bài viết khỏi mảng
+            localStorage.setItem('posts', JSON.stringify(posts)); // Cập nhật lại localStorage
+            location.reload(); // Tải lại trang để cập nhật danh sách
+        }
+    </script>
+</body>
+</html>

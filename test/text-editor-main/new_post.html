@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Basic Text Editor</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        #toolbar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        #toolbar::-webkit-scrollbar { height: 6px; }
+        #toolbar::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 3px; }
+        #toolbar button, #toolbar select {
+            margin-right: 10px;
+            padding: 8px 12px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        #toolbar button:hover, #toolbar select:hover { background-color: #e0e0e0; }
+        .toolbar-group { display: flex; align-items: center; }
+        .toolbar-separator {
+            height: 24px;
+            width: 1px;
+            background-color: #ccc;
+            margin: 0 10px;
+            flex-shrink: 0;
+        }
+        #editor-container {
+            width: 100%;
+            height: calc(100vh - 195px);
+            border: none;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        #editor {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        #imageInput { display: none; }
+        .header { display: flex; justify-content: center; align-items: center; margin-bottom: 20px; }
+        .header .button { margin-right: 20px; display: flex; align-items: center; }
+        .header .button button {
+            margin-left: 8px;
+            padding: 8px 12px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+        #title-input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 10px 20px;
+            background-color: transparent;
+            color: #333;
+        }
+        .header .button {
+            white-space: nowrap;
+        }
+        @media (min-width: 1000px) { #toolbar { justify-content: center; } }
+        @media (max-width: 999px) { 
+            #toolbar { justify-content: flex-start; } 
+            #editor-container { padding: 5px; }
+        }
+        @media (max-width: 400px) {
+            body { padding: 0; padding-top: 20px; }
+            #toolbar {
+                margin: 0;
+                margin-bottom: 5px;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            #editor-container { margin: 0; border-radius: 0; height: calc(100vh - 160px); }
+            .header .button { margin-right: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <input type="text" id="title-input" placeholder="Title">
+        <div class="button">
+            <button id="add-post-btn">Đăng</button>
+            <button id="cancel-post-btn">Hủy bỏ</button>
+        </div>
+    </div>
+    <div id="toolbar">
+        <div class="toolbar-group">
+            <select id="headingSelect">
+                <option value="">Tiêu đề</option>
+                <option value="h1">Tiêu đề cấp 1</option>
+                <option value="h2">Tiêu đề cấp 2</option>
+                <option value="h3">Tiêu đề cấp 3</option>
+                <option value="h4">Tiêu đề cấp 4</option>
+                <option value="h5">Tiêu đề cấp 5</option>
+                <option value="h6">Tiêu đề cấp 6</option>
+            </select>
+        </div>
+        <div class="toolbar-separator"></div>
+        <div class="toolbar-group">
+            <button id="boldBtn">B</button>
+            <button id="italicBtn"><i>I</i></button>
+            <button id="underlineBtn"><u>U</u></button>
+        </div>
+        <div class="toolbar-separator"></div>
+        <div class="toolbar-group">
+            <button id="orderedListBtn">OL</button>
+            <button id="unorderedListBtn">UL</button>
+        </div>
+        <div class="toolbar-separator"></div>
+        <div class="toolbar-group">
+            <button id="imageFileBtn">Choose Image</button>
+            <button id="imageUrlBtn">Insert Image URL</button>
+            <input type="file" id="imageInput" accept="image/*">
+        </div>
+    </div>
+
+    <div id="editor-container">
+        <iframe id="editor"></iframe>
+    </div>
+
+    <script>
+        const editor = document.getElementById('editor').contentWindow;
+        const commands = {
+            'boldBtn': 'bold',
+            'italicBtn': 'italic',
+            'underlineBtn': 'underline',
+            'orderedListBtn': 'insertOrderedList',
+            'unorderedListBtn': 'insertUnorderedList',
+        };
+
+        editor.document.designMode = 'on';
+        editor.document.body.style.cssText = `
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            font-size: 16px; line-height: 1.5; padding: 20px; max-width: 800px; color: #333;
+            margin: 0 auto;
+        `;
+        const style = document.createElement('style');
+        style.textContent = `
+            img { max-width: 100%; height: auto; border-radius: 8px; margin: 10px auto; }
+            body::-webkit-scrollbar { width: 10px; }
+            body::-webkit-scrollbar-track { background: #f1f1f1; }
+            body::-webkit-scrollbar-thumb { background: #888; border-radius: 5px; }
+            body::-webkit-scrollbar-thumb:hover { background: #555; }
+            html { scrollbar-width: thin; scrollbar-color: #888 #f1f1f1; }
+        `;
+        editor.document.head.appendChild(style);
+
+        Object.keys(commands).forEach(id => {
+            document.getElementById(id).addEventListener('click', () => execCommand(commands[id]));
+        });
+
+        function execCommand(command, value = null) {
+            editor.focus();
+            editor.document.execCommand(command, false, value);
+        }
+
+        document.getElementById('headingSelect').addEventListener('change', (e) => {
+            if (e.target.value) execCommand('formatBlock', `<${e.target.value}>`);
+            e.target.value = '';
+        });
+
+        document.getElementById('imageFileBtn').addEventListener('click', () => imageInput.click());
+        document.getElementById('imageUrlBtn').addEventListener('click', () => {
+            const url = prompt('Enter image URL:');
+            if (url) execCommand('insertHTML', `<img src="${url}" style="max-width: 100%; height: auto;">`);
+        });
+
+        document.getElementById('imageInput').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => execCommand('insertHTML', `<img src="${e.target.result}" style="max-width: 100%; height: auto;">`);
+                reader.readAsDataURL(file);
+            }
+        });
+
+        editor.document.addEventListener('paste', function(e) {
+            e.preventDefault();
+            const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+            [...items].forEach(item => {
+                if (item.type.includes("image")) {
+                    const blob = item.getAsFile();
+                    const reader = new FileReader();
+                    reader.onload = (event) => execCommand('insertHTML', `<img src="${event.target.result}" style="max-width: 100%; height: auto;">`);
+                    reader.readAsDataURL(blob);
+                } else if (item.type === "text/plain") {
+                    item.getAsString(text => execCommand('insertText', text));
+                }
+            });
+        });
+
+        window.addEventListener('load', () => editor.focus());
+
+        document.getElementById('add-post-btn').addEventListener('click', function() {
+            const title = document.getElementById('title-input').value;
+            const content = editor.document.body.innerHTML;
+
+            if (title.trim() === "" || content.trim() === "") {
+                alert("Vui lòng điền tiêu đề và nội dung bài viết.");
+                return;
+            }
+
+            // Tạo đối tượng bài viết
+            const post = {
+                title: title,
+                content: content
+            };
+
+            // Lấy danh sách bài viết từ localStorage hoặc tạo mới
+            let posts = JSON.parse(localStorage.getItem('posts')) || [];
+
+            // Thêm bài viết mới vào danh sách
+            posts.push(post);
+
+            // Lưu lại danh sách vào localStorage
+            localStorage.setItem('posts', JSON.stringify(posts));
+
+            // Kích hoạt sự kiện 'storage' sau khi lưu bài viết
+            window.dispatchEvent(new Event('storage'));
+
+            alert("Bài viết đã được đăng thành công!");
+            window.location.href = 'admin.html'; // Chuyển hướng sang view.html sau khi đăng bài
+        });
+    </script>
+</body>
+</html>
