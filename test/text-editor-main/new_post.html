@@ -171,17 +171,18 @@
         `;
         editor.document.head.appendChild(style);
 
-        // ---
-
+        // Gán sự kiện click cho các nút lệnh trong đối tượng commands
         Object.keys(commands).forEach(id => {
             document.getElementById(id).addEventListener('click', () => execCommand(commands[id]));
         });
 
+        // Hàm thực thi lệnh trong trình soạn thảo
         function execCommand(command, value = null) {
             editor.focus();
             editor.document.execCommand(command, false, value);
         }
 
+        // Gán sự kiện thay đổi cho dropdown tiêu đề
         document.getElementById('headingSelect').addEventListener('change', (e) => {
             if (e.target.value) execCommand('formatBlock', `<${e.target.value}>`);
             e.target.value = '';
@@ -204,6 +205,7 @@
             if (url) execCommand('insertHTML', `<img src="${url}" style="max-width: 100%; height: auto;">`);
         });
 
+        // Lấy hình ảnh từ clipboard
         editor.document.addEventListener('paste', function(e) {
             e.preventDefault();
             const items = (e.clipboardData || e.originalEvent.clipboardData).items;
@@ -219,9 +221,10 @@
             });
         });
 
+        // Đưa tiêu điểm vào trình soạn thảo khi trang được tải
         window.addEventListener('load', () => editor.focus());
-        // ---
 
+        //! Đăng bài viết
         document.getElementById('add-post-btn').addEventListener('click', function() {
             const title = document.getElementById('title-input').value;
             const content = editor.document.body.innerHTML;
