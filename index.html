@@ -65,68 +65,67 @@
         </div>
 
         <!--! Giới thiệu  !-->
-        <div class="container about" id="about">
-          <div class="about-title">
-            <h1>Giới thiệu về tôi</h1>
-            <p>Khám phá về tôi qua 4 phần dưới đây.</p>
+        <div id="about" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+          <div class="container about">
+            <div class="about-title">
+              <h1>Giới thiệu về tôi</h1>
+              <p>Khám phá về tôi qua 4 phần dưới đây.</p>
+            </div>
+            <div class="box">
+              <div class="box-item">
+                <h4>1. Yêu thích lập trình</h4>
+                <p>Tôi đam mê lập trình, thích thú với việc tạo ra các giải pháp phần mềm sáng tạo và luôn khám phá các công nghệ mới để cải thiện kỹ năng của mình.</p>
+              </div>
+              <div class="box-item">
+                <h4>2. Thành thạo Python và C++</h4>
+                <p>Tôi là một học sinh nhưng đã có nền tảng vững chắc trong cả Python và C++, thường xuyên sử dụng chúng để giải quyết các bài toán lập trình và xây dựng các dự án cá nhân.</p>
+              </div>
+              <div class="box-item">
+                <h4>3. Sáng tạo và học hỏi không ngừng</h4>
+                <p>Mỗi dự án tôi làm đều là một cơ hội để sáng tạo và học hỏi thêm. Tôi luôn tìm cách kết hợp các ý tưởng mới vào lập trình để tạo ra các sản phẩm thú vị và hữu ích.</p>
+              </div>
+              <div class="box-item">
+                <h4>4. Đam mê chia sẻ và học tập</h4>
+                <p>Tôi thích tham gia vào các cuộc thi và hoạt động sáng tạo trong lĩnh vực công nghệ, không chỉ để thử thách bản thân mà còn để chia sẻ kiến thức và niềm đam mê của mình với bạn bè.</p>
+              </div>
+            </div>
           </div>
-          <div class="box">
-            <div class="box-item">
-              <h4>1. Yêu thích lập trình</h4>
-              <p>Tôi đam mê lập trình, thích thú với việc tạo ra các giải pháp phần mềm sáng tạo và luôn khám phá các công nghệ mới để cải thiện kỹ năng của mình.</p>
-            </div>
-            <div class="box-item">
-              <h4>2. Thành thạo Python và C++</h4>
-              <p>Tôi là một học sinh nhưng đã có nền tảng vững chắc trong cả Python và C++, thường xuyên sử dụng chúng để giải quyết các bài toán lập trình và xây dựng các dự án cá nhân.</p>
-            </div>
-            <div class="box-item">
-              <h4>3. Sáng tạo và học hỏi không ngừng</h4>
-              <p>Mỗi dự án tôi làm đều là một cơ hội để sáng tạo và học hỏi thêm. Tôi luôn tìm cách kết hợp các ý tưởng mới vào lập trình để tạo ra các sản phẩm thú vị và hữu ích.</p>
-            </div>
-            <div class="box-item">
-              <h4>4. Đam mê chia sẻ và học tập</h4>
-              <p>Tôi thích tham gia vào các cuộc thi và hoạt động sáng tạo trong lĩnh vực công nghệ, không chỉ để thử thách bản thân mà còn để chia sẻ kiến thức và niềm đam mê của mình với bạn bè.</p>
-            </div>
-          </div>
-        </div>
+        </div style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
 
         <!--! Dự án -->
-        <div class="container" id="projects" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center;">
-          <h1 style="text-align: center; margin: 30px 0; font-weight: bold;">Các dự án</h1>
-          <div class="repo-container" id="repo-container"></div>
+        <div>
+          <div class="container" id="projects" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+            <h1 style="text-align: center; margin: 30px 0; font-weight: bold;">Các dự án</h1>
+            <div class="repo-container" id="repo-container"></div>
+          </div>
         </div>
 
         <!--! Liên hệ -->
-        <div class="container" id="contact">
-          <div class="row justify-content-center">
-              <div class="col-md-6 form-container p-5">
-                <h1 style="text-align: center; margin: 30px 0; font-weight: bold;">Liên hệ</h1>
-                <p class="text-center text-muted mb-5">Bạn có thể liên hệ với chúng tôi bất cứ lúc nào</p>
-                <form action="https://formsubmit.co/chauaurora9@gmail.com" method="POST">
-                      <div class="mb-3">
-                          <input type="text" class="form-control" name="Họ và tên" placeholder="Họ và tên" required>
-                      </div>
-                      <div class="mb-3">
-                          <input type="email" class="form-control" name="Email" placeholder="Địa chỉ email của bạn" required>
-                      </div>
-                      <div class="mb-3">
-                          <textarea class="form-control" name="Nội dung" placeholder="Chúng tôi có thể giúp gì cho bạn?" rows="4" maxlength="120" required></textarea>
-                          <div id="charCount" class="form-text text-end">0/120</div>
-                      </div>
-                      <!-- <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html"> -->
-                      <div class="d-grid">
-                          <button type="submit" class="btn btn-warning btn-lg">Gửi</button>
-                      </div>
-                  </form>
-              </div>
-          </div>
-      </div>
+        <div class="contact col-md-6 form-container p-5" id="contact">
+          <h1 style="text-align: center; margin: 30px 0; font-weight: bold;">Liên hệ</h1>
+          <p class="text-center text-muted mb-5">Bạn có thể liên hệ với chúng tôi bất cứ lúc nào</p>
+          <form action="https://formsubmit.co/chauaurora9@gmail.com" method="POST">
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="Họ và tên" placeholder="Họ và tên" required>
+                </div>
+                <div class="mb-3">
+                    <input type="email" class="form-control" name="Email" placeholder="Địa chỉ email của bạn" required>
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" name="Nội dung" placeholder="Chúng tôi có thể giúp gì cho bạn?" rows="4" maxlength="120" required></textarea>
+                </div>
+                <!-- <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html"> -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-warning btn-lg">Gửi</button>
+                </div>
+            </form>
+        </div>
     </main>
 
       <!--! Footer -->
       <div class="container">
         <footer class="py-3 my-4">
-          <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
+          <p class="text-center text-body-secondary">Portfolio - Mai Ngọc Châu | © 2024</p>
         </footer>
       </div>
     <!--! Bootstrap JS -->
