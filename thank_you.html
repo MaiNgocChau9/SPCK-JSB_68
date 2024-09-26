@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cảm ơn đã liên hệ</title>
+    <title>Cảm ơn!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
         body {
@@ -12,6 +13,7 @@
             margin: 0;
             padding: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -19,64 +21,23 @@
         }
         .container {
             background-color: #ffffff;
-            border-radius: 8px;
+            border-radius: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
+            padding: 3rem;
             text-align: center;
             max-width: 90%;
-            width: 400px;
-        }
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 1rem;
-        }
-        p {
-            color: #34495e;
-            line-height: 1.6;
-        }
-        .icon {
-            font-size: 4rem;
-            color: #27ae60;
-            margin-bottom: 1rem;
-        }
-        .button {
-            display: inline-block;
-            background-color: #3498db;
-            color: #ffffff;
-            padding: 0.8rem 1.5rem;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-            margin-top: 1rem;
-        }
-        .button:hover {
-            background-color: #2980b9;
-        }
-        @media (max-width: 480px) {
-            .container {
-                padding: 1.5rem;
-            }
-            h1 {
-                font-size: 1.5rem;
-            }
+            width: fit-content;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="icon">&#10004;</div>
-        <h1>Cảm ơn đã liên hệ!</h1>
-        <p>Chúng tôi đã nhận được thông tin của bạn và sẽ phản hồi trong thời gian sớm nhất.</p>
-        <a href="#" class="button" id="homeButton">Trở về trang chủ</a>
+        <div class="icon">
+            <img src="./access/check.gif" alt="check icon" style="width: 6rem;">
+        </div>
+        <h1 style="font-weight: bold;" class="p-3">Cảm ơn đã liên hệ!</h1>
+        <p style="line-height: 1.5;" class="p-3">Chúng tôi đã nhận được thông tin của bạn và sẽ phản hồi trong thời gian sớm nhất.</p>
+        <a href="./index.html" class="btn btn-warning">Trở về trang chủ</a>
     </div>
-
-    <script>
-        document.getElementById('homeButton').addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('Chuyển hướng về trang chủ');
-            // Uncomment the line below and replace with your actual home page URL
-            // window.location.href = 'https://your-website.com';
-        });
-    </script>
 </body>
 </html>
