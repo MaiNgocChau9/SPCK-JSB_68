@@ -7,7 +7,7 @@
     <!--! Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/main.css">
-    <link rel="shortcut icon" href="./access/logo.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="./access/logo.jpg" type="image/x-icon" >
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -28,13 +28,10 @@
                 <a class="nav-link" aria-current="page" href="#about">Giới thiệu</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#skill">Kỹ năng</a>
+                <a class="nav-link" href="#projects">Dự án</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Dự án</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Liên hệ</a>
+                <a class="nav-link" href="#contact">Liên hệ</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Blog</a>
@@ -60,7 +57,7 @@
               <h1>Xin chào!<br><span id="first_span">Tôi</span> là <span id="second_span">Mai Ngọc Châu</span></h1>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
               <div class="fast-link">
-                <a class="secondary-button" href="#">Các dự án của tôi 😎</a>
+                <a class="secondary-button" href="#projects">Các dự án của tôi 😎</a>
                 <a class="primary-button" href="#">Xem thêm</a>
               </div>
             </div>
@@ -93,59 +90,83 @@
           </div>
         </div>
 
-        <!--! Kỹ năng -->
-        <div class="container skill-box" id="skill">
-          <h2>Kỹ năng</h2>
-          <div class="skill">
-            <div class="skill-box">
-                <span class="title">GML</span>
-    
-                <div class="skill-bar">
-                    <span class="skill-per gml"></span>
-                </div>
-            </div>
-    
-            <div class="skill-box">
-                <span class="title">Python</span>
-    
-                <div class="skill-bar">
-                    <span class="skill-per python"></span>
-                </div>
-            </div>
-            <div class="skill-box">
-                <span class="title">C++</span>
-    
-                <div class="skill-bar">
-                    <span class="skill-per cpp"></span>
-                </div>
-            </div>
-            <div class="skill-box">
-              <span class="title">HTML</span>
-  
-              <div class="skill-bar">
-                  <span class="skill-per html"></span>
-            </div>
-          </div>
+        <!--! Dự án -->
+        <div class="container" id="projects" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center;">
+          <h1 style="text-align: center; margin: 30px 0; font-weight: bold;">Các dự án</h1>
+          <div class="repo-container" id="repo-container"></div>
         </div>
+
+        <!--! Liên hệ -->
+        <div class="container" id="contact">
+          <div class="row justify-content-center">
+              <div class="col-md-6 form-container p-5">
+                <h1 style="text-align: center; margin: 30px 0; font-weight: bold;">Liên hệ</h1>
+                <p class="text-center text-muted mb-5">Bạn có thể liên hệ với chúng tôi bất cứ lúc nào</p>
+                <form action="https://formsubmit.co/chauaurora9@gmail.com" method="POST">
+                      <div class="mb-3">
+                          <input type="text" class="form-control" name="Họ và tên" placeholder="Họ và tên" required>
+                      </div>
+                      <div class="mb-3">
+                          <input type="email" class="form-control" name="Email" placeholder="Địa chỉ email của bạn" required>
+                      </div>
+                      <div class="mb-3">
+                          <textarea class="form-control" name="Nội dung" placeholder="Chúng tôi có thể giúp gì cho bạn?" rows="4" maxlength="120" required></textarea>
+                          <div id="charCount" class="form-text text-end">0/120</div>
+                      </div>
+                      <!-- <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html"> -->
+                      <div class="d-grid">
+                          <button type="submit" class="btn btn-warning btn-lg">Gửi</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
       </div>
     </main>
 
       <!--! Footer -->
       <div class="container">
         <footer class="py-3 my-4">
-          <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
-          </ul>
           <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
         </footer>
       </div>
     <!--! Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
+      // Repo
+      // Hàm async để fetch và hiển thị repositories
+      async function fetchAndDisplayRepos() {
+            // Lấy phần tử HTML có id 'repo-container' để chứa các repo
+            const repoContainer = document.getElementById('repo-container');
+
+            // Fetch dữ liệu từ GitHub API và chuyển đổi sang định dạng JSON
+            const repos = await fetch(`https://api.github.com/users/MaiNgocChau9/repos`).then(response => response.json());
+
+            // Duyệt qua từng repo trong danh sách nhận được từ API
+            repos.forEach(repo => {
+                // Tạo một phần tử <div> mới để chứa thông tin repo
+                const repoDiv = document.createElement('div');
+                // Thêm class 'repo' vào phần tử <div> vừa tạo
+                repoDiv.classList.add('repo');
+                
+                // Chèn nội dung HTML cho từng repo, bao gồm:
+                // - Link đến repo trên GitHub
+                // - Mô tả của repo hoặc hiển thị 'No description' nếu không có
+                // - Hiển thị ngôn ngữ lập trình sử dụng trong repo
+                repoDiv.innerHTML = `
+                    <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+                    <p>${repo.description || 'No description'}</p>
+                    <div>
+                        <span>🛠️ ${repo.language || 'N/A'}</span>
+                    </div>
+                `;
+                
+                // Thêm phần tử <div> của repo vào bên trong 'repo-container'
+                repoContainer.appendChild(repoDiv);
+            });
+        }
+        fetchAndDisplayRepos();
+
+      // Animation
       document.addEventListener("DOMContentLoaded", () => {
       const observer = new IntersectionObserver(entries => 
         entries.forEach(entry => entry.target.classList.toggle("show", entry.isIntersecting))
