@@ -10,36 +10,72 @@
     <link rel="shortcut icon" href="./access/logo.jpg" type="image/x-icon" >
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <div class="logo">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <div class="logo">
             <img src="./access/logo.jpg" alt="logo">
             <a class="navbar-brand" href="./index.html" style="font-weight: bold;">Portfolio</a>
-          </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#start">Trang chủ</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#about">Giới thiệu</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#projects">Dự án</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#contact">Liên hệ</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Blog</a>
-              </li>
-            </ul>
-          </div>
         </div>
-      </nav>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#start">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="#about">Giới thiệu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#projects">Dự án</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Liên hệ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./view.html">Blog</a>
+                </li>
+                <li class="nav-item" id="userSection">
+                    <a href="./login.html" id="loginLink" style="display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 10px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" fill="#565450" class="bi bi-person-circle" viewBox="0 0 16 16" style="margin-top: 5px;">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                        </svg>
+                        <span id="userName" style="margin: 10px 0;"></span>
+                    </a>
+                </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const userSection = document.getElementById('userSection');
+      const loginLink = document.getElementById('loginLink');
+      const userName = document.getElementById('userName');
+
+      // Kiểm tra xem có người dùng đã đăng nhập hay không
+      const currentUser = localStorage.getItem('currentUser');
+
+      if (currentUser) {
+          // Nếu có người dùng đăng nhập, hiển thị tên
+          userName.textContent = currentUser;
+          loginLink.href = '#'; // Xóa link đến trang đăng nhập
+          
+          // Thêm chức năng đăng xuất
+          loginLink.addEventListener('click', function(e) {
+              e.preventDefault();
+              localStorage.removeItem('currentUser');
+              window.location.reload(); // Tải lại trang sau khi đăng xuất
+          });
+      } else {
+          // Nếu chưa đăng nhập, giữ nguyên link đến trang đăng nhập
+          userName.textContent = 'Đăng nhập | Đăng ký';
+      }
+  });
+  </script>
 
       
       <!--! Content -->
@@ -112,7 +148,7 @@
                     <input type="email" class="form-control" name="Email" placeholder="Địa chỉ email của bạn" required>
                 </div>
                 <div class="mb-3">
-                    <textarea class="form-control" name="Nội dung" placeholder="Chúng tôi có thể giúp gì cho bạn?" rows="4" maxlength="120" required></textarea>
+                    <textarea class="form-control" name="Nội dung" placeholder="Chúng tôi có thể giúp gì cho bạn?" rows="4" required></textarea>
                 </div>
                 <input type="hidden" name="_next" value="https://maingocchau9.github.io/SPCK-JSB_68/thank_you.html">
                 <div class="d-grid">
