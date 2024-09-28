@@ -75,33 +75,6 @@
         </div>
     </div>
 
-    <script>
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    // Kiểm tra tài khoản admin đặc biệt
-    if (email === 'admin@admin.com' && password === 'admin') {
-        localStorage.setItem('currentUser', 'Admin');
-        alert('Đăng nhập thành công!');
-        window.location.href = 'index.html';
-        return;
-    }
-
-    // Xử lý đăng nhập cho các tài khoản thông thường
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    const user = users.find(u => u.email === email && u.password === password);
-
-    if (user) {
-        localStorage.setItem('currentUser', user.name);
-        alert('Đăng nhập thành công!');
-        window.location.href = 'index.html';
-    } else {
-        alert('Email hoặc mật khẩu không đúng');
-    }
-});
-    </script>
+    <script src="./js/login.js"></script>
 </body>
 </html>
