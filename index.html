@@ -34,49 +34,12 @@
                     <a class="nav-link" href="#contact">Liên hệ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./view.html">Blog</a>
-                </li>
-                <li class="nav-item" id="userSection">
-                    <a href="./login.html" id="loginLink" style="display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 10px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" fill="#565450" class="bi bi-person-circle" viewBox="0 0 16 16" style="margin-top: 5px;">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                        </svg>
-                        <span id="userName" style="margin: 10px 0;"></span>
-                    </a>
+                    <a class="nav-link" href="./html/view.html">Blog</a>
                 </li>
               </ul>
           </div>
       </div>
   </nav>
-
-  <script>
-  document.addEventListener('DOMContentLoaded', function() {
-      const userSection = document.getElementById('userSection');
-      const loginLink = document.getElementById('loginLink');
-      const userName = document.getElementById('userName');
-
-      // Kiểm tra xem có người dùng đã đăng nhập hay không
-      const currentUser = localStorage.getItem('currentUser');
-
-      if (currentUser) {
-          // Nếu có người dùng đăng nhập, hiển thị tên
-          userName.textContent = currentUser;
-          loginLink.href = '#'; // Xóa link đến trang đăng nhập
-          
-          // Thêm chức năng đăng xuất
-          loginLink.addEventListener('click', function(e) {
-              e.preventDefault();
-              localStorage.removeItem('currentUser');
-              window.location.reload(); // Tải lại trang sau khi đăng xuất
-          });
-      } else {
-          // Nếu chưa đăng nhập, giữ nguyên link đến trang đăng nhập
-          userName.textContent = 'Đăng nhập | Đăng ký';
-      }
-  });
-  </script>
-
       
       <!--! Content -->
       <main>
@@ -150,7 +113,7 @@
                 <div class="mb-3">
                     <textarea class="form-control" name="Nội dung" placeholder="Chúng tôi có thể giúp gì cho bạn?" rows="4" required></textarea>
                 </div>
-                <input type="hidden" name="_next" value="https://maingocchau9.github.io/SPCK-JSB_68/thank_you.html">
+                <input type="hidden" name="_next" value="https://maingocchau9.github.io/SPCK-JSB_68/html/thank_you.html">
                 <div class="d-grid">
                     <button type="submit" class="btn btn-warning btn-lg">Gửi</button>
                 </div>
@@ -185,11 +148,11 @@
                 
                 // Chèn nội dung HTML cho từng repo, bao gồm:
                 // - Link đến repo trên GitHub
-                // - Mô tả của repo hoặc hiển thị 'No description' nếu không có
+                // - Mô tả của repo hoặc hiển thị 'Không có mô tả' nếu không có
                 // - Hiển thị ngôn ngữ lập trình sử dụng trong repo
                 repoDiv.innerHTML = `
                     <a href="${repo.html_url}" target="_blank">${repo.name}</a>
-                    <p>${repo.description || 'No description'}</p>
+                    <p>${repo.description || 'Không có mô tả'}</p>
                     <div>
                         <span>🛠️ ${repo.language || 'N/A'}</span>
                     </div>
@@ -200,14 +163,6 @@
             });
         }
         fetchAndDisplayRepos();
-
-      // Animation
-      document.addEventListener("DOMContentLoaded", () => {
-      const observer = new IntersectionObserver(entries => 
-        entries.forEach(entry => entry.target.classList.toggle("show", entry.isIntersecting))
-      );
-      document.querySelectorAll(".container").forEach(content => observer.observe(content));
-      });
     </script>
 </body>
 </html>

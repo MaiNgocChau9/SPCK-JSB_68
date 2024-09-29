@@ -39,19 +39,7 @@ background-clip: content-box !important;
 background-color: #a8bbbf !important;
 }
 
-/* Animation for content */
-.container {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease; /* Hiệu ứng khi cuộn */
-}
-
-.container.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/*  */
+/* Navbar */
 .navbar{
   position: fixed;
   width: 100%;

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danh sách bài viết</title>
+    <link rel="shortcut icon" href="./access/logo.jpg" type="image/x-icon" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+      * {
+        font-family: "Open Sans", sans-serif;
+      }
+      body {
+        padding: 0;
+        margin: 0;
+        background-color: #f5f0e5;
+      }
+      .header h1 {
+        font-size: 60px;
+        text-align: center;
+        color: white;
+        text-shadow: 2px 2px 2px #0000007a;
+        font-weight: bold;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+      }
+      #post-list {
+        list-style-type: none;
+        padding: 0 20%;
+        display: flex;
+        flex-direction: column-reverse;
+      }
+      #post-list li {
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 28px;
+        font-weight: bold;
+        gap: 15px;
+        border-bottom: 1px solid #ccc;
+      }
+      #post-list li:hover {
+        color: #c89209;
+      }
+      .header {
+        position: relative;
+        border-radius: 20px;
+        margin: 20px 5%;
+      }
+      .header img {
+        height: 60vh;
+        width: 100%;
+        border-radius: 20px;
+        object-fit: cover;
+      }
+      .navbar {
+        width: 100%;
+        background-color: #f5f0e5 !important;
+        border-bottom: 1px solid #dcd8ce;
+        display: flex;
+        padding: 7px 10%;
+        z-index: 1;
+        position: fixed;
+        top: 0;
+      }
+
+      #navbarNav {
+        justify-content: flex-end;
+      }
+
+      .nav-item {
+        margin: 0 10px;
+      }
+
+      .logo img {
+        height: 35px;
+        border-radius: 50%;
+      }
+
+      .logo {
+        display: flex;
+        gap: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <div class="logo">
+          <img src="../access/logo.jpg" alt="logo" />
+          <a class="navbar-brand" href="../index.html" style="font-weight: bold"
+            >Portfolio</a
+          >
+        </div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html#start">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="../index.html#about"
+                >Giới thiệu</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html#projects">Dự án</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html#contact">Liên hệ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./view.html">Blog</a>
+            </li>
+            <li class="nav-item" id="userSection">
+              <a
+                href="./login.html"
+                id="loginLink"
+                style="
+                  display: flex;
+                  flex-direction: row;
+                  justify-content: center;
+                  align-items: center;
+                  gap: 10px;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30px"
+                  height="30px"
+                  fill="#565450"
+                  class="bi bi-person-circle"
+                  viewBox="0 0 16 16"
+                  style="margin-top: 5px"
+                >
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                  <path
+                    fill-rule="evenodd"
+                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
+                  />
+                </svg>
+                <span
+                  id="userName"
+                  style="margin: 10px 0; text-decoration: none; color: black"
+                ></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const userSection = document.getElementById("userSection");
+        const loginLink = document.getElementById("loginLink");
+        const userName = document.getElementById("userName");
+
+        // Kiểm tra xem có người dùng đã đăng nhập hay không
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+        if (currentUser) {
+          // Nếu có người dùng đăng nhập, hiển thị tên
+          userName.textContent = currentUser.name;
+          loginLink.href = "#"; // Xóa link đến trang đăng nhập
+
+          // Thêm chức năng đăng xuất
+          loginLink.addEventListener("click", function (e) {
+            e.preventDefault();
+            localStorage.removeItem("currentUser");
+            window.location.reload(); // Tải lại trang sau khi đăng xuất
+          });
+        } else {
+          // Nếu chưa đăng nhập, giữ nguyên link đến trang đăng nhập
+          userName.textContent = "Đăng nhập | Đăng ký";
+        }
+      });
+    </script>
+
+    <div style="height: 50px"></div>
+    <div class="header">
+      <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="https://images.unsplash.com/photo-1472289065668-ce650ac443d2?q=80&w=1769&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              class="d-block w-100"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="https://images.unsplash.com/photo-1510070112810-d4e9a46d9e91?q=80&w=1769&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              class="d-block w-100"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              class="d-block w-100"
+            />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      <h1>Blog</h1>
+    </div>
+    <div class="container">
+      <ul id="post-list"></ul>
+    </div>
+
+    <!--! Nút Admin -->
+    <a
+      href="./admin.html"
+      class="btn btn-warning adminButton"
+      style="
+        padding: 15px 30px;
+        border-radius: 20px;
+        font-size: 1rem;
+        position: fixed;
+        right: 20px;
+        bottom: 25px;
+      "
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-person-lines-fill"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"
+        />
+      </svg>
+      Truy cập quyền quản trị
+    </a>
+    
+    <!--! Footer -->
+    <div class="container" style="margin-top: 100px">
+      <footer class="py-3 my-4">
+        <p class="text-center text-body-secondary">
+          Portfolio - Mai Ngọc Châu | © 2024
+        </p>
+      </footer>
+    </div>
+
+    <script>
+      // Hàm kiểm tra và hiển thị/ẩn nút admin
+      function checkAdminStatus() {
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"))  || {role: "USER"};
+        const adminButton = document.querySelector(".adminButton");
+  
+        if (currentUser.role == "ADMIN") {
+          adminButton.style.display = "relative";
+        } else {
+          adminButton.style.display = "none";
+        }
+      }
+      
+      // Hàm cập nhật danh sách bài viết
+      function updatePostList() {
+        const posts = JSON.parse(localStorage.getItem("posts")) || [];
+        const postList = document.getElementById("post-list");
+        postList.innerHTML = ""; // Xóa nội dung hiện tại của danh sách
+
+        posts.forEach((post, index) => {
+          const li = document.createElement("li");
+          li.textContent = post.title;
+          li.addEventListener("click", function () {
+            // Lưu bài viết được chọn vào localStorage
+            sessionStorage.setItem("currentPost", JSON.stringify(post));
+            // Chuyển sang trang hiển thị bài viết
+            window.location.href = "post.html";
+          });
+          postList.appendChild(li);
+        });
+      }
+      updatePostList();
+
+
+      // Gọi hàm kiểm tra khi trang được tải
+      window.onload = checkAdminStatus;
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

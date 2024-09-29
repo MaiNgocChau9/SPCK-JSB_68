@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập</title>
+    <title>Đăng ký</title>
     <link rel="shortcut icon" href="./access/logo.jpg" type="image/x-icon" >
     <style>
         body {
@@ -52,11 +52,11 @@
         button:hover {
             background-color: #ffcc00;
         }
-        .register-link {
+        .login-link {
             margin-top: 20px;
             font-size: 14px;
         }
-        .register-link a {
+        .login-link a {
             color: #ffd700;
             text-decoration: none;
         }
@@ -64,17 +64,19 @@
 </head>
 <body>
     <div class="container">
-        <h1>Đăng Nhập</h1>
-        <form id="loginForm">
+        <h1>Đăng ký</h1>
+        <form id="registerForm">
+            <input type="text" id="name" placeholder="Họ và tên" required>
             <input type="email" id="email" placeholder="Email" required>
             <input type="password" id="password" placeholder="Mật khẩu" required>
-            <button type="submit">Đăng nhập</button>
+            <input type="password" id="confirmPassword" placeholder="Xác nhận mật khẩu" required>
+            <button type="submit">Đăng ký</button>
         </form>
-        <div class="register-link">
-            Chưa có tài khoản? <a href="./register.html">Đăng ký</a>
+        <div class="login-link">
+            Bạn đã có tài khoản? <a href="login.html">Đăng nhập</a>
         </div>
     </div>
 
-    <script src="../js/login.js"></script>
+    <script src="../js/register.js"></script>
 </body>
 </html>
