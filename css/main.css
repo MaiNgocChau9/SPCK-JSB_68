@@ -72,7 +72,6 @@ background-color: #a8bbbf !important;
   display: flex;
   flex-direction: row;
   height: 100vh;
-  /* height: max-content; */
   align-items: center;
   justify-content: center;
   box-sizing: border-box;

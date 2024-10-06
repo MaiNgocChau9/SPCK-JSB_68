@@ -10,10 +10,10 @@ document
 
     // validate form
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      alert("Mật khẩu không trùng khớp, vui lòng thử lại!");
       return;
     } else if (password.length < 6) {
-      alert("Password has least 6 letters");
+      alert("Mật khẩu phải có tối thiểu 6 kí tự");
       return;
     }
 
@@ -21,7 +21,7 @@ document
     const usersLocalStorage = JSON.parse(localStorage.getItem("users"));
     // Check if user already exists
     if (usersLocalStorage.find((u) => u.email === email)) {
-      alert("User with this email already exists");
+      alert("Người với email này đã tồn tại");
       return;
     }
     // Add new user
@@ -35,6 +35,6 @@ document
     // Save updated users array to localStorage
     localStorage.setItem("users", JSON.stringify(usersLocalStorage));
 
-    alert("Registration successful! Please login.");
+    alert("Đăng ký thành công! Vui lòng đăng nhập");
     window.location.href = "./login.html";
   });

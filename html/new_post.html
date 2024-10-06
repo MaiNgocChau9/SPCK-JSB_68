@@ -80,7 +80,7 @@
             width: 100%;
             font-size: 24px;
             font-weight: bold;
-            padding: 10px 20px;
+            padding: 9px 20px;
             background-color: transparent;
             color: #333;
         }
@@ -149,91 +149,104 @@
     </div>
 
     <script>
+        // Lấy đối tượng iframe có id 'editor' và lấy nội dung bên trong (window của iframe)
         const editor = document.getElementById('editor').contentWindow;
+
+        // Định nghĩa các lệnh chỉnh sửa sẽ được thực thi khi nhấn các nút toolbar
         const commands = {
-            'boldBtn': 'bold',
-            'italicBtn': 'italic',
-            'underlineBtn': 'underline',
-            'orderedListBtn': 'insertOrderedList',
-            'unorderedListBtn': 'insertUnorderedList',
+            'boldBtn': 'bold',               // Nhấn nút 'boldBtn' để làm đậm văn bản
+            'italicBtn': 'italic',           // Nhấn nút 'italicBtn' để làm nghiêng văn bản
+            'underlineBtn': 'underline',     // Nhấn nút 'underlineBtn' để gạch dưới văn bản
+            'orderedListBtn': 'insertOrderedList', // Nhấn nút 'orderedListBtn' để tạo danh sách có thứ tự
+            'unorderedListBtn': 'insertUnorderedList', // Nhấn nút 'unorderedListBtn' để tạo danh sách không có thứ tự
         };
 
+        // Kích hoạt chế độ soạn thảo cho iframe (chế độ chỉnh sửa nội dung)
         editor.document.designMode = 'on';
+
+        // Áp dụng CSS cho nội dung trong iframe
         editor.document.body.style.cssText = `
             @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-            font-family: "Open Sans", sans-serif;
-            font-size: 16px; line-height: 1.5; padding: 20px; max-width: 800px; color: #333;
-            margin: 0 auto;
+            font-family: "Open Sans", sans-serif;  
+            font-size: 16px; line-height: 1.5;  
+            padding: 20px;                     
+            max-width: 800px;                 
+            color: #333;                     
+            margin: 0 auto;                   
         `;
+
+        // Tạo thẻ <style> và thêm các quy tắc CSS bổ sung vào phần head của iframe
         const style = document.createElement('style');
         style.textContent = `
-            img { max-width: 100%; height: auto; border-radius: 8px; margin: 10px auto; }
-            body::-webkit-scrollbar { width: 10px; }
+            img { max-width: 100%; height: auto; border-radius: 8px; margin: 10px auto; }  // Hình ảnh sẽ co giãn phù hợp với kích thước và có viền bo tròn
+            body::-webkit-scrollbar { width: 10px; }                                      // Tùy chỉnh thanh cuộn trong iframe
             body::-webkit-scrollbar-track { background: #f1f1f1; }
             body::-webkit-scrollbar-thumb { background: #888; border-radius: 5px; }
             body::-webkit-scrollbar-thumb:hover { background: #555; }
             html { scrollbar-width: thin; scrollbar-color: #888 #f1f1f1; }
         `;
+        // Thêm thẻ <style> vào head của iframe
         editor.document.head.appendChild(style);
 
-        // Gán sự kiện click cho các nút lệnh trong đối tượng commands
+        // Gán sự kiện click cho các nút lệnh trong đối tượng commands (bôi đậm, nghiêng, gạch dưới...)
         Object.keys(commands).forEach(id => {
             document.getElementById(id).addEventListener('click', () => execCommand(commands[id]));
         });
 
-        // Hàm thực thi lệnh trong trình soạn thảo
+        // Hàm thực thi lệnh chỉnh sửa văn bản trong iframe
         function execCommand(command, value = null) {
-            editor.focus();
-            editor.document.execCommand(command, false, value);
+            editor.focus();                               // Đặt tiêu điểm vào iframe trước khi thực thi lệnh
+            editor.document.execCommand(command, false, value); // Thực thi lệnh chỉnh sửa (vd: bold, italic...)
         }
 
-        // Gán sự kiện thay đổi cho dropdown tiêu đề
+        // Gán sự kiện thay đổi cho dropdown "headingSelect" để thay đổi tiêu đề (H1, H2...)
         document.getElementById('headingSelect').addEventListener('change', (e) => {
-            if (e.target.value) execCommand('formatBlock', `<${e.target.value}>`);
-            e.target.value = '';
+            if (e.target.value) execCommand('formatBlock', `<${e.target.value}>`); // Chọn tiêu đề (h1-h6)
+            e.target.value = '';  // Reset lại dropdown sau khi thực hiện lệnh
         });
 
-        // Lấy hình ảnh từ máy tính
+        // Sự kiện khi nhấn nút "Choose Image" để chọn ảnh từ máy
         document.getElementById('imageFileBtn').addEventListener('click', () => imageInput.click());
         document.getElementById('imageInput').addEventListener('change', (e) => {
-            const file = e.target.files[0];
+            const file = e.target.files[0];   // Lấy file ảnh từ input
             if (file) {
-                const reader = new FileReader();
+                const reader = new FileReader();  // Đọc file bằng FileReader
                 reader.onload = (e) => execCommand('insertHTML', `<img src="${e.target.result}" style="max-width: 100%; height: auto;">`);
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(file);  // Chuyển đổi file thành chuỗi base64
             }
         });
-        
-        // Lấy hình ảnh từ URL
+
+        // Sự kiện khi nhấn "Insert Image URL" để thêm ảnh từ URL
         document.getElementById('imageUrlBtn').addEventListener('click', () => {
-            const url = prompt('Enter image URL:');
-            if (url) execCommand('insertHTML', `<img src="${url}" style="max-width: 100%; height: auto;">`);
+            const url = prompt('Enter image URL:');   // Hiện cửa sổ nhập URL
+            if (url) execCommand('insertHTML', `<img src="${url}" style="max-width: 100%; height: auto;">`);  // Thêm ảnh vào iframe
         });
 
-        // Lấy hình ảnh từ clipboard
+        // Sự kiện dán hình ảnh hoặc văn bản từ clipboard vào iframe
         editor.document.addEventListener('paste', function(e) {
-            e.preventDefault();
-            const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+            e.preventDefault();  // Ngăn hành động dán mặc định
+            const items = (e.clipboardData || e.originalEvent.clipboardData).items;  // Lấy các items từ clipboard
             [...items].forEach(item => {
-                if (item.type.includes("image")) {
-                    const blob = item.getAsFile();
-                    const reader = new FileReader();
+                if (item.type.includes("image")) {    // Kiểm tra nếu là hình ảnh
+                    const blob = item.getAsFile();    // Lấy file ảnh
+                    const reader = new FileReader();  // Đọc file bằng FileReader
                     reader.onload = (event) => execCommand('insertHTML', `<img src="${event.target.result}" style="max-width: 100%; height: auto;">`);
-                    reader.readAsDataURL(blob);
-                } else if (item.type === "text/plain") {
-                    item.getAsString(text => execCommand('insertText', text));
+                    reader.readAsDataURL(blob);       // Chuyển file thành base64
+                } else if (item.type === "text/plain") {  // Nếu là văn bản
+                    item.getAsString(text => execCommand('insertText', text));  // Dán văn bản vào iframe
                 }
             });
         });
 
-        // Đưa tiêu điểm vào trình soạn thảo khi trang được tải
+        // Đặt tiêu điểm vào iframe khi trang được tải
         window.addEventListener('load', () => editor.focus());
 
-        //! Đăng bài viết
+        // Sự kiện khi nhấn nút "Đăng" để đăng bài viết
         document.getElementById('add-post-btn').addEventListener('click', function() {
-            const title = document.getElementById('title-input').value;
-            const content = editor.document.body.innerHTML;
+            const title = document.getElementById('title-input').value;  // Lấy tiêu đề từ input
+            const content = editor.document.body.innerHTML;  // Lấy nội dung bài viết từ iframe
 
+            // Kiểm tra nếu tiêu đề hoặc nội dung trống thì hiển thị cảnh báo
             if (title.trim() === "" || content.trim() === "") {
                 alert("Vui lòng điền tiêu đề và nội dung bài viết.");
                 return;
@@ -241,21 +254,22 @@
 
             // Tạo đối tượng bài viết
             const post = {
-                title: title,
-                content: content
+                title: title,       // Tiêu đề bài viết
+                content: content    // Nội dung bài viết
             };
 
-            // Lấy danh sách bài viết từ localStorage hoặc tạo mới
+            // Lấy danh sách bài viết từ localStorage hoặc tạo danh sách mới nếu chưa có
             let posts = JSON.parse(localStorage.getItem('posts')) || [];
 
             // Thêm bài viết mới vào danh sách
             posts.push(post);
 
-            // Lưu lại danh sách vào localStorage
+            // Lưu danh sách bài viết vào localStorage
             localStorage.setItem('posts', JSON.stringify(posts));
 
+            // Hiển thị thông báo bài viết đã được đăng và chuyển hướng trang
             alert("Bài viết đã được đăng thành công!");
-            window.location.href = 'admin.html'; // Chuyển hướng sang view.html sau khi đăng bài
+            window.location.href = 'admin.html';  // Chuyển hướng sang trang admin sau khi đăng bài
         });
     </script>
 </body>

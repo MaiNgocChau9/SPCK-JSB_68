@@ -167,54 +167,58 @@
     
     <ul id="post-list"></ul>
     <script>
-        // Lấy danh sách bài viết từ localStorage
+        // Lấy danh sách bài viết từ localStorage, nếu không có bài viết nào thì khởi tạo mảng rỗng
         const posts = JSON.parse(localStorage.getItem('posts')) || [];
 
+        // Tìm phần tử HTML với ID 'post-list' (danh sách bài viết) và 'new-post-btn' (nút tạo bài viết mới)
         const postList = document.getElementById('post-list');
         const newPostBtn = document.getElementById('new-post-btn');
 
-        // Chuyển hướng đến trang tạo bài viết mới
+        // Khi người dùng nhấn vào nút "Tạo bài viết mới", chuyển hướng đến trang 'new_post.html'
         newPostBtn.addEventListener('click', function() {
-            window.location.href = 'new_post.html';
+            window.location.href = 'new_post.html';  // Chuyển đến trang tạo bài viết
         });
 
-        // Hiển thị danh sách bài viết
+        // Hiển thị danh sách bài viết bằng cách duyệt qua mảng 'posts'
         posts.forEach((post, index) => {
+            // Tạo một phần tử <li> để chứa mỗi bài viết
             const li = document.createElement('li');
-            
-            // Tạo phần tử tiêu đề bài viết
-            const title = document.createElement('span');
-            title.classList.add('post-title');
-            title.textContent = post.title;
 
-            // Khi nhấp vào tiêu đề, sẽ chuyển sang trang hiển thị bài viết
+            // Tạo phần tử <span> để hiển thị tiêu đề bài viết
+            const title = document.createElement('span');
+            title.classList.add('post-title');  // Thêm class để có thể áp dụng CSS
+            title.textContent = post.title;  // Hiển thị tiêu đề bài viết
+
+            // Khi người dùng nhấn vào tiêu đề bài viết, lưu thông tin bài viết vào sessionStorage và chuyển đến trang 'post.html'
             title.addEventListener('click', function() {
-                sessionStorage.setItem('currentPost', JSON.stringify(post));
-                window.location.href = 'post.html';
+                sessionStorage.setItem('currentPost', JSON.stringify(post));  // Lưu bài viết hiện tại vào sessionStorage
+                window.location.href = 'post.html';  // Chuyển đến trang hiển thị bài viết
             });
 
             // Tạo nút xóa bài viết
             const deleteBtn = document.createElement('button');
-            deleteBtn.textContent = 'Xóa';
-            deleteBtn.classList.add('delete-btn');
+            deleteBtn.textContent = 'Xóa';  // Nút sẽ có chữ "Xóa"
+            deleteBtn.classList.add('delete-btn');  // Thêm class cho nút để áp dụng CSS
+            // Khi nhấn vào nút xóa, yêu cầu người dùng xác nhận trước khi xóa bài viết
             deleteBtn.addEventListener('click', function() {
-                // Xác nhận trước khi xóa bài viết
-                const confirmDelete = confirm(`Bạn có chắc chắn muốn xóa bài viết: "${post.title}" không?`);
+                const confirmDelete = confirm(`Bạn có chắc chắn muốn xóa bài viết: "${post.title}" không?`);  // Hiển thị hộp thoại xác nhận
                 if (confirmDelete) {
-                    deletePost(index); // Gọi hàm xóa bài viết
+                    deletePost(index);  // Gọi hàm xóa bài viết nếu người dùng xác nhận
                 }
             });
 
+            // Thêm tiêu đề bài viết và nút xóa vào phần tử <li>
             li.appendChild(title);
             li.appendChild(deleteBtn);
+            // Thêm <li> vào danh sách bài viết (phần tử 'post-list')
             postList.appendChild(li);
         });
 
         // Hàm xóa bài viết
         function deletePost(index) {
-            posts.splice(index, 1); // Xóa bài viết khỏi mảng
-            localStorage.setItem('posts', JSON.stringify(posts)); // Cập nhật lại localStorage
-            location.reload(); // Tải lại trang để cập nhật danh sách
+            posts.splice(index, 1);  // Xóa bài viết khỏi mảng 'posts' dựa trên chỉ mục (index)
+            localStorage.setItem('posts', JSON.stringify(posts));  // Cập nhật lại localStorage với danh sách bài viết mới
+            location.reload();  // Tải lại trang để danh sách được cập nhật
         }
     </script>
 </body>
